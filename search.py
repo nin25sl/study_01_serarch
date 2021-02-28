@@ -2,7 +2,9 @@ import os
 import csv
 
 #csvファイル読み込み
-path = './lesson01_test2.csv'
+#path = './lesson01.csv'
+#path = './lesson01_test2.csv'
+path = './lesson01_ans.csv'
 source = []
 if os.path.isfile(path) == True:
     with open(path) as f:
@@ -21,16 +23,22 @@ def search():
     ### ここに検索ロジックを書く
 
     #listにある場合、リストに存在する出力をして、終了
+    # for row in source:
+    #     for sourceWord in row:
+    #         if sourceWord == word:
+    #             print("{}が見つかりました".format(word))
+    #             return 0
+
     for row in source:
-        for sourceWord in row:
-            if sourceWord == word:
-                print("{}が見つかりました".format(word))
-                return 0
+        if word in row:
+            print("{}が見つかりました".format(word))
+            return 0
 
     #リストにない場合、リストにないことを出力
     print("リストにはありませんでした")
-    #リストに追加（今回は一行のみなので、source[0]に追加）
+    
     source[0].append(word)
+    source.append([str(int(source[-1][0]) + 1), word])
     
     #csvファイルに書き込み
     with open(path, 'w') as f:
